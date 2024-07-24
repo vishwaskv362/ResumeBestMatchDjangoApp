@@ -1,5 +1,5 @@
 
-ResumeBestMatchDjangoApp
+#ResumeBestMatchDjangoApp
 
 
 Developed a Django-based API to match resumes against job descriptions and a threshold value.
