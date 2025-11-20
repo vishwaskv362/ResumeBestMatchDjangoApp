@@ -95,13 +95,37 @@ git clone https://github.com/vishwaskv362/ResumeBestMatchDjangoApp.git
 cd ResumeBestMatchDjangoApp
 ```
 
-### 2. Set Up Environment Variables
+### 2. Google Cloud Setup
 
-Create a `.env` file in the root directory:
+1. **Create a GCP project**
+
+2. **Enable required APIs:**
+   - Document AI API
+   - Vertex AI API
+   - Cloud Storage API
+
+3. **Create a service account with roles:**
+   - Document AI User
+   - Vertex AI User
+   - Storage Object Viewer
+
+4. **Download service account key** and save as `application_default_credentials.json` or `creds.json` in the project root
+
+5. **Create a Cloud Storage bucket** for resumes
+
+### 3. Set Up Environment Variables
+
+Copy the environment template and fill in your values:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env`:
 
 ```bash
 # Django Settings
-DJANGO_SECRET_KEY=your-secret-key-here
+DJANGO_SECRET_KEY=your-secret-key-here  # Generate: python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 DEBUG=True
 DJANGO_ENV=development
 ALLOWED_HOSTS=localhost,127.0.0.1
@@ -114,12 +138,6 @@ GCP_VERTEX_AI_LOCATION=us-central1
 GCP_MODEL_NAME=gemini-1.0-pro-vision-001
 GOOGLE_APPLICATION_CREDENTIALS=application_default_credentials.json
 ```
-
-### 3. Add GCP Credentials
-
-Place your Google Cloud credentials file in the root directory:
-- `application_default_credentials.json` or
-- `creds.json`
 
 ### 4. Install Dependencies
 
@@ -156,7 +174,17 @@ The API will be available at `http://localhost:8000`
 ### Build and Run with Docker Compose
 
 ```bash
+# Build and run
 docker-compose up --build
+
+# Run in detached mode
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop containers
+docker-compose down
 ```
 
 The API will be available at `http://localhost:8000`
@@ -166,6 +194,26 @@ The API will be available at `http://localhost:8000`
 ```bash
 docker build -t resume-matcher-api .
 docker run -p 8000:8000 --env-file .env resume-matcher-api
+```
+
+## 🧪 Testing the API
+
+### Health Check
+```bash
+curl http://localhost:8000/api/health/
+```
+
+### Test Matching
+```bash
+curl -X POST http://localhost:8000/api/match/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "context": "Looking for Python developer with Django experience",
+    "category": "resume",
+    "threshold": "0.7",
+    "noOfMatches": 5,
+    "inputPath": "gs://your-bucket-name"
+  }'
 ```
 
 ## 📡 API Endpoints
@@ -259,7 +307,7 @@ GET /api/stats/
 | `GCP_VERTEX_AI_LOCATION` | Vertex AI location | `us-central1` |
 | `GCP_MODEL_NAME` | Gemini model name | `gemini-1.0-pro-vision-001` |
 
-## 🧪 Testing
+## 🧪 Running Tests
 
 ```bash
 # Run all tests
@@ -271,6 +319,25 @@ pytest --cov=apps --cov=core
 # Run specific test file
 pytest apps/matcher/tests/test_api.py
 ```
+
+## 🔧 Troubleshooting
+
+### Import Errors
+- Make sure you're in the project root directory
+- Activate virtual environment: `source venv/bin/activate` (Windows: `venv\Scripts\activate`)
+- Check PYTHONPATH includes the project root
+
+### GCP Authentication Issues
+- Verify credentials file path in `.env`
+- Check service account has required permissions
+- Ensure APIs are enabled in GCP console
+- Test credentials: `gcloud auth application-default print-access-token`
+
+### Docker Issues
+- Ensure credentials files are in the project root
+- Check docker-compose.yml volume mappings
+- Verify port 8000 is available: `netstat -an | findstr 8000`
+- Clean rebuild: `docker-compose down -v && docker-compose build --no-cache`
 
 ## 📊 Database Models
 
