@@ -1,5 +1,5 @@
 """
-URL configuration for resume_matcher_django project.
+URL configuration for AI Resume Hunter project.
 """
 from django.contrib import admin
 from django.urls import path, include

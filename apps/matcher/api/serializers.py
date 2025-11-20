@@ -1,5 +1,5 @@
 """
-Serializers for the resume matcher API.
+Serializers for the AI Resume Hunter API.
 """
 from rest_framework import serializers
 from apps.matcher.models import ResumeData

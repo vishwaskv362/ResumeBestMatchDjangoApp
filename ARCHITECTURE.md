@@ -1,4 +1,4 @@
-# Architecture Overview
+# AI Resume Hunter - Architecture Overview
 
 ## System Architecture Diagram
 

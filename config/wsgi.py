@@ -1,5 +1,5 @@
 """
-WSGI config for resume_matcher_django project.
+WSGI config for AI Resume Hunter project.
 """
 import os
 

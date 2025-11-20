@@ -1,5 +1,5 @@
 """
-Models for the resume matcher application.
+Models for the AI Resume Hunter application.
 """
 import uuid
 from django.db import models

@@ -1,5 +1,5 @@
 """
-ASGI config for resume_matcher_django project.
+ASGI config for AI Resume Hunter project.
 """
 import os
 

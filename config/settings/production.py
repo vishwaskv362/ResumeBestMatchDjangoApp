@@ -1,5 +1,5 @@
 """
-Production settings for resume_matcher_django project.
+Production settings for AI Resume Hunter project.
 """
 from .base import *
 

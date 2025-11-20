@@ -1,5 +1,5 @@
 """
-Base settings for resume_matcher_django project.
+Base settings for AI Resume Hunter project.
 """
 import os
 from pathlib import Path

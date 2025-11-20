@@ -1,4 +1,4 @@
-# Resume Best Match Django API
+# AI Resume Hunter
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Django](https://img.shields.io/badge/Django-4.2+-green.svg)](https://www.djangoproject.com/)
@@ -20,7 +20,7 @@ A production-ready Django REST API that intelligently matches resumes against jo
 ## 🏗️ Architecture
 
 ```
-ResumeBestMatchDjangoApp/
+AIResumeHunter/
 ├── config/                      # Project configuration
 │   ├── settings/               # Split settings (base, production)
 │   ├── urls.py                 # Main URL configuration
@@ -92,7 +92,7 @@ ResumeBestMatchDjangoApp/
 
 ```bash
 git clone https://github.com/vishwaskv362/ResumeBestMatchDjangoApp.git
-cd ResumeBestMatchDjangoApp
+cd AIResumeHunter
 ```
 
 ### 2. Google Cloud Setup
@@ -227,7 +227,7 @@ GET /api/health/
 ```json
 {
   "status": "healthy",
-  "message": "Resume Matcher API is running"
+  "message": "AI Resume Hunter API is running"
 }
 ```
 

@@ -1,5 +1,5 @@
 """
-API views for the resume matcher application.
+API views for the AI Resume Hunter application.
 """
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -49,7 +49,7 @@ def health_check(request):
     """Health check endpoint to verify API is running."""
     return Response({
         'status': 'healthy',
-        'message': 'Resume Matcher API is running'
+        'message': 'AI Resume Hunter API is running'
     })
 
 

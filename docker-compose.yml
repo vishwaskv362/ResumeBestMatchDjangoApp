@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: resume_matcher_api
+    container_name: ai_resume_hunter_api
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120
     ports:
       - "8000:8000"
@@ -22,20 +22,20 @@ services:
       - .env
     restart: unless-stopped
     networks:
-      - resume_matcher_network
+      - ai_resume_hunter_network
 
   # Optional: Add a database service for production
   # db:
   #   image: postgres:15-alpine
-  #   container_name: resume_matcher_db
+  #   container_name: ai_resume_hunter_db
   #   volumes:
   #     - postgres_data:/var/lib/postgresql/data
   #   environment:
-  #     - POSTGRES_DB=resume_matcher
+  #     - POSTGRES_DB=ai_resume_hunter
   #     - POSTGRES_USER=postgres
   #     - POSTGRES_PASSWORD=postgres
   #   networks:
-  #     - resume_matcher_network
+  #     - ai_resume_hunter_network
 
 volumes:
   media:
@@ -43,5 +43,5 @@ volumes:
   # postgres_data:
 
 networks:
-  resume_matcher_network:
+  ai_resume_hunter_network:
     driver: bridge
