@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: resume_matcher_api
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./media:/app/media
+      - ./staticfiles:/app/staticfiles
+      - ./application_default_credentials.json:/app/application_default_credentials.json:ro
+      - ./creds.json:/app/creds.json:ro
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.base
+      - DEBUG=True
+      - DJANGO_ENV=development
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - resume_matcher_network
+
+  # Optional: Add a database service for production
+  # db:
+  #   image: postgres:15-alpine
+  #   container_name: resume_matcher_db
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_DB=resume_matcher
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #   networks:
+  #     - resume_matcher_network
+
+volumes:
+  media:
+  staticfiles:
+  # postgres_data:
+
+networks:
+  resume_matcher_network:
+    driver: bridge
