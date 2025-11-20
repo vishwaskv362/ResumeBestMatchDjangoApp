@@ -75,6 +75,3 @@ yarn-error.log*
 # Backup files
 *.bak
 *.backup
-
-# Old directory structure
-resume_matcher_django/
